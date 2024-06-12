@@ -1,3 +1,4 @@
+import hljs from 'highlight.js'
 import './render.css'
 
 export function render() {

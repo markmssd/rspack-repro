@@ -19,6 +19,7 @@
   "dependencies": {
     "@rspack/cli": "^0.7.0",
     "@rspack/core": "^0.7.0",
+    "highlight.js": "11.9.0",
     "html-webpack-plugin": "^5.6.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
