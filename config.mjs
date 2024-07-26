@@ -19,7 +19,6 @@ const config = {
   entry: {
     main: "./src/index",
   },
-  plugins: [new HtmlWebpackPlugin(), new ModuleFederationPlugin({ name: 'shell' })],
   output: {
     clean: true,
     path: isRunningWebpack
@@ -27,33 +26,19 @@ const config = {
       : path.resolve(__dirname, "rspack-dist"),
     filename: "[name].js",
   },
-  module: {
-    rules: [
-      {
-        test: /\.[jt]sx?$/,
-        include: path.resolve(__dirname, 'src'),
-        use: {
-          loader: 'builtin:swc-loader',
-          options: {
-            jsc: {
-              parser: {
-                syntax: 'typescript',
-                tsx: true,
-              },
-              transform: {
-                react: {
-                  runtime: 'automatic',
-                },
-              },
-            },
-          },
-        },
-        type: 'javascript/auto'
-      },
-    ],
-  },
   experiments: {
     css: true,
+  },
+  plugins: [
+    new HtmlWebpackPlugin(),
+    // comment out the ModuleFederationPlugin, and weird log disappears
+    new ModuleFederationPlugin({ name: 'shell' }),
+  ],
+  stats: {
+    // set `modules=false`, and weird log disappears
+    modules: true,
+    assets: false,
+    colors: true,
   },
 };
 
