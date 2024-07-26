@@ -126,6 +126,7 @@ __webpack_require__.l = function (url, done, key, chunkId) {
 			script.setAttribute("nonce", __webpack_require__.nc);
 		}
 		script.setAttribute("data-webpack", dataWebpackPrefix + key);
+		
 		script.src = url;
 
 		
@@ -167,6 +168,13 @@ __webpack_require__.r = function(exports) {
 };
 
 })();
+// webpack/runtime/rspack_version
+(() => {
+__webpack_require__.rv = function () {
+	return "1.0.0-alpha.3";
+};
+
+})();
 // webpack/runtime/auto_public_path
 (() => {
 
@@ -179,7 +187,7 @@ __webpack_require__.r = function(exports) {
           var scripts = document.getElementsByTagName("script");
               if (scripts.length) {
                 var i = scripts.length - 1;
-                while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
+                while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
               }
         }
       }
@@ -197,7 +205,7 @@ var installedChunks = {"main": 0,};
 var uniqueName = "rspack-repro";
 // loadCssChunkData is unnecessary
 var loadingAttribute = "data-webpack-loading";
-var loadStylesheet = function (chunkId, url, done, hmr) {
+var loadStylesheet = function (chunkId, url, done, hmr, fetchPriority) {
 	var link,
 		needAttach,
 		key = "chunk-" + chunkId;
@@ -224,7 +232,13 @@ var loadStylesheet = function (chunkId, url, done, hmr) {
 	if (!link) {
 		needAttach = true;
 		link = document.createElement("link");
+		if (__webpack_require__.nc) {
+			link.setAttribute("nonce", __webpack_require__.nc);
+		}
 		link.setAttribute("data-webpack", uniqueName + ":" + key);
+		if (fetchPriority) {
+			link.setAttribute("fetchpriority", fetchPriority);
+		}
 		link.setAttribute(loadingAttribute, 1);
 		link.rel = "stylesheet";
 		link.href = url;
@@ -247,12 +261,10 @@ var loadStylesheet = function (chunkId, url, done, hmr) {
 		link.onerror = onLinkComplete.bind(null, link.onerror);
 		link.onload = onLinkComplete.bind(null, link.onload);
 	} else onLinkComplete(undefined, { type: "load", target: link });
-	hmr
-		? hmr.parentNode.insertBefore(link, hmr)
-		: needAttach && document.head.appendChild(link);
+	hmr ? document.head.insertBefore(link, hmr) : needAttach && document.head.appendChild(link);
 	return link;
 };
-__webpack_require__.f.css = function (chunkId, promises) {
+__webpack_require__.f.css = function (chunkId, promises, fetchPriority) {
 	// css chunk loading
 	var installedChunkData = __webpack_require__.o(installedChunks, chunkId)
 		? installedChunks[chunkId]
@@ -302,7 +314,7 @@ __webpack_require__.f.css = function (chunkId, promises) {
 						}
 					}
 				};
-				var link = loadStylesheet(chunkId, url, loadingEnded);
+				var link = loadStylesheet(chunkId, url, loadingEnded, undefined, fetchPriority);
 			} else installedChunks[chunkId] = 0;
 		}
 	}
@@ -427,11 +439,16 @@ chunkLoadingGlobal.push = webpackJsonpCallback.bind(
 );
 
 })();
+// webpack/runtime/rspack_unique_id
+(() => {
+__webpack_require__.ruid = "bundler=rspack@1.0.0-alpha.3";
+
+})();
 /************************************************************************/
 var __webpack_exports__ = {};
-__webpack_require__.e(/*! import() */ "src_render_js").then(__webpack_require__.bind(__webpack_require__, /*! ./render */ "./src/render.js")).then((exports)=>{
-    exports.render();
-});
+__webpack_require__.e(/*! import() */ "src_render_js").then(__webpack_require__.bind(__webpack_require__, /*! ./render */ "./src/render.js")).then(exports => {
+    exports.render()
+})
 
 })()
 ;
