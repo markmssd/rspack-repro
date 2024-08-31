@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import ESLintPlugin from "eslint-rspack-plugin";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isRunningWebpack = !!process.env.WEBPACK;
@@ -18,7 +19,13 @@ const config = {
   entry: {
     main: "./src/index",
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new ESLintPlugin({
+      lintDirtyModulesOnly: true,
+      configType: 'flat',
+    }),
+  ],
   output: {
     clean: true,
     path: isRunningWebpack
