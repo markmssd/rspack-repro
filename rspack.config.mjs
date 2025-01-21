@@ -13,8 +13,8 @@ if (!isRunningRspack && !isRunningWebpack) {
  * @type {import('webpack').Configuration | import('@rspack/cli').Configuration}
  */
 const config = {
-  mode: "development",
-  devtool: false,
+  mode: "production", // <-- only happens with production mode and source-map
+  devtool: 'source-map', // <-- only happens with production mode and source-map
   entry: {
     main: "./src/index",
   },
