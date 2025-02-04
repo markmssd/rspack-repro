@@ -1,7 +1,8 @@
 import './render.css'
-import { SparkLineChart } from '@shopify/polaris-viz';
+// import { SimpleBarChart } from '@shopify/polaris-viz'; // fails, because of https://github.com/Shopify/polaris-viz/blob/main/packages/polaris-viz/src/data/character-widths.json underneath
+// console.log(SimpleBarChart);
 
-console.log(SparkLineChart);
+console.log('៘'); // <-- fails, even if commented, as long as it's in the file
 
 export function render() {
     const el = document.createElement('div')
