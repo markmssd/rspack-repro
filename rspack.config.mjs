@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isRunningWebpack = !!process.env.WEBPACK;
@@ -13,12 +14,24 @@ if (!isRunningRspack && !isRunningWebpack) {
  * @type {import('webpack').Configuration | import('@rspack/cli').Configuration}
  */
 const config = {
-  mode: "development",
-  devtool: false,
+  mode: 'production',
+  devtool: 'source-map',
   entry: {
     main: "./src/index",
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'test_name',
+      filename: 'remoteEntry.json',
+      exposes: {
+        '.': `./src/index.js`,
+      },
+      shareStrategy: 'loaded-first',
+      manifest: false,
+      dts: false,
+    }),
+    new HtmlWebpackPlugin(),
+  ],
   output: {
     clean: true,
     path: isRunningWebpack
