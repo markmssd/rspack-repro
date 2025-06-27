@@ -26,8 +26,8 @@ const config = {
       filename: 'html.index.ejs',
       template: 'src/index.ejs',
       templateParameters: {
-        escapedTitle: '<%- escapedTitle %>',
-        unescapedTitle: '<%= unescapedTitle %>',
+        escapedTitle: '<%- escapedTitle %> &',
+        unescapedTitle: '<%= unescapedTitle %> &',
       },
       inject: 'body',
     }),
@@ -37,8 +37,8 @@ const config = {
       filename: 'rspack.index.ejs',
       template: 'src/index.ejs',
       templateParameters: {
-        escapedTitle: '<%- escapedTitle %>',
-        unescapedTitle: '<%= unescapedTitle %>',
+        escapedTitle: '<%- escapedTitle %> &',
+        unescapedTitle: '<%= unescapedTitle %> &',
       },
       inject: 'body',
     }),
