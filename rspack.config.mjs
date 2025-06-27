@@ -1,6 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import HtmlWebpackPlugin from "html-webpack-plugin";
+import rspack from "@rspack/core";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isRunningWebpack = !!process.env.WEBPACK;
@@ -18,7 +18,15 @@ const config = {
   entry: {
     main: "./src/index",
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new rspack.HtmlRspackPlugin({
+    favicon: 'favicon.ico',
+    filename: 'index.ejs',
+    template: 'src/index.ejs',
+    templateParameters: {
+      title: '<%= title %>',
+    },
+    inject: 'body',
+  }),],
   output: {
     clean: true,
     path: isRunningWebpack
