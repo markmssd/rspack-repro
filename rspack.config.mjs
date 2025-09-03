@@ -1,7 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
+import "@module-federation/enhanced/rspack";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isRunningWebpack = !!process.env.WEBPACK;
